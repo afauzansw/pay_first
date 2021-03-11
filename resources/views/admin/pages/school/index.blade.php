@@ -7,7 +7,7 @@
         <title>School Profile</title>
 
         <!-- Tailwind -->
-        <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+        <link href="{{ asset('css/tailwind.output.css') }}" rel="stylesheet">
 
         <!-- CSS Master -->
         <link href="{{ asset('css/master.css') }}" rel="stylesheet">
@@ -102,12 +102,16 @@
                     </div>
                     @else
                         <div class="mt-auto p-10 content-center text-center">
-                            <img src="{{ asset('svg/no-data.svg') }}" class="w-96  m-auto" alt="">
+                            <img src="{{ asset('svg/no-data.svg') }}" class="w-96 lg:w-3/6  m-auto" alt="">
                             <p class="mb-2 text-gray-400">Complete your previous school profile.</p>
                             <a href="{{ route('school.create') }}" class="px-4 py-1 text-lg bg-blue-100 text-blue-600 rounded-full hover:text-blue-100 hover:bg-blue-600">Create Profile</a>
                         </div>
                     @endif
                 </main>
+
+                <!-- Footer -->
+                @include('admin.layout.footer')
+
             </div>
         </div>
 

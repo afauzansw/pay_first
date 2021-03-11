@@ -18,7 +18,7 @@ class DashboardController extends Controller
         $balance   = Transaction::sum('amount');
         $total_trx = Transaction::count();
         $student   = Student::count();
-        $transaction = Transaction::all();
+        $transaction = Transaction::orderBy('created_at', 'desc')->get();
         return view('admin.pages.dashboard')->with([
             'balance'     => $balance,
             'total_trx'   => $total_trx,

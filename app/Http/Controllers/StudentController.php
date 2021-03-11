@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Validator;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class StudentController extends Controller
 {
@@ -15,9 +16,9 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $classx   = Student::where('class', 'X')->get();
-        $classxi  = Student::where('class', 'XI')->get();
-        $classxii = Student::where('class', 'XII')->get();
+        $classx   = Student::where('class', 'X')->orderBy('major')->get();
+        $classxi  = Student::where('class', 'XI')->orderBy('major')->get();
+        $classxii = Student::where('class', 'XII')->orderBy('major')->get();
         return view('admin.pages.student.index')->with([
             'classx'   => $classx,
             'classxi'  => $classxi,
@@ -110,5 +111,21 @@ class StudentController extends Controller
     {
         Student::find($id)->delete();
         return redirect()->route('student.index')->with('Success', 'Student deleted');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function export()
+    {
+        $student = Student::orderBy('major')->get();
+        $pdf     = PDF::loadView('admin.pages.pdf.student',['student'=>$student]);
+        return $pdf->download('Studentlist.pdf');
+        // return view('admin.pages.pdf.student')->with([
+        //     'student' => $student
+        // ]);
     }
 }

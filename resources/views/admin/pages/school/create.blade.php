@@ -7,7 +7,7 @@
         <title>New Transaction</title>
 
         <!-- Tailwind -->
-        <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+        <link href="{{ asset('css/tailwind.output.css') }}" rel="stylesheet">
 
         <!-- CSS Master -->
         <link href="{{ asset('css/master.css') }}" rel="stylesheet">
@@ -80,6 +80,10 @@
                         </form>
                     </div>
                 </main>
+
+                <!-- Footer -->
+                @include('admin.layout.footer')
+
             </div>
         </div>
 

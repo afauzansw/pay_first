@@ -7,7 +7,7 @@
         <title>Add Student - Pay First</title>
 
         <!-- Tailwind -->
-        <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+        <link href="{{ asset('css/tailwind.output.css') }}" rel="stylesheet">
 
         <!-- CSS Master -->
         <link href="{{ asset('css/master.css') }}" rel="stylesheet">
@@ -58,7 +58,7 @@
                             <div class="grid grid-cols-2 grid-flow-col gap-4">
                                 <div class="flex flex-col">
                                     <label class="leading-loose">Class</label>
-                                    <select name="class" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" id="class">
+                                    <select name="class" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" id="class" required="">
                                         <option value="0">Choose</option>
                                         <option value="X">X</option>
                                         <option value="XI">XI</option>
@@ -88,6 +88,10 @@
                         </form>
                     </div>
                 </main>
+
+                <!-- Footer -->
+                @include('admin.layout.footer')
+
             </div>
         </div>
 

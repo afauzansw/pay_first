@@ -1,6 +1,6 @@
     <aside class="relative bg-sidebar h-screen w-64 hidden sm:block shadow-xl overflow-y-auto">
         <div class="p-5">
-            <a href="/" class="text-app text-2xl col-6 font-semibold hover:text-gray-300">
+            <a href="/" class="text-app text-2xl col-6 font-bold hover:text-gray-300">
                 <i class="fas fa-school mr-3"></i>Pay First
             </a>
             <a href="{{ route('transaction.index') }}" class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg flex items-center justify-center new-btn">

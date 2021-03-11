@@ -39,7 +39,13 @@
                 <h1 class="text-2xl font-semibold text-black pb-3">Add User</h1>
                 <p class="text-xs text-gray-500 mb-6">Dashboard > Add User</p>
 
-                <div class="leading-loose bg-white p-6 rounded-lg shadow-md" style="width: 70%">
+                <x-jet-authentication-card>
+                    <x-slot name="logo">
+                        <x-jet-authentication-card-logo />
+                    </x-slot>
+
+                    <x-jet-validation-errors class="mb-4" />
+
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
@@ -99,7 +105,7 @@
                             </x-jet-button>
                         </div>
                     </form>
-                </div>
+                </x-jet-authentication-card>
             </main>
 
             <!-- Footer -->

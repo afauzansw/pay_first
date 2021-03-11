@@ -7,7 +7,7 @@
     <meta name="description" content="">
 
     <!-- Tailwind -->
-    <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+    <link href="{{ asset('css/tailwind.output.css') }}" rel="stylesheet">
 
     <!-- CSS Master -->
     <link href="{{ asset('css/master.css') }}" rel="stylesheet">

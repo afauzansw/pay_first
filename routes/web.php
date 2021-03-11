@@ -37,7 +37,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('transaction', TransactionController::class);
     });
 
-Route::get('student-pdf', [StudentListController::class, 'createPDF']);
+Route::get('student-pdf', [StudentController::class, 'export']);
+
+// Route::group(['middleware'=>'admins'],function(){
+//     Route::resource('/user',UserController::class);
+// });
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return view('dashboard');

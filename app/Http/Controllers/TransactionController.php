@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bill;
+use App\Models\Student;
 use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -14,7 +17,15 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.transaction.create');
+        $allBill    = Bill::all();
+        $allPayer   = User::all();
+        $allStudent = Student::all();
+
+        return view('admin.pages.transaction.create')->with([
+            'allBill'    => $allBill,
+            'allPayer'   => $allPayer,
+            'allStudent' => $allStudent
+        ]);
     }
 
     /**
@@ -64,7 +75,16 @@ class TransactionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $transaction = Transaction::findOrFail($id);
+        $allBill    = Bill::all();
+        $allPayer   = User::all();
+        $allStudent = Student::all();
+        return view('admin.pages.transaction.edit')->with([
+            'transaction' => $transaction,
+            'allBill'    => $allBill,
+            'allPayer'   => $allPayer,
+            'allStudent' => $allStudent
+        ]);
     }
 
     /**
@@ -76,7 +96,12 @@ class TransactionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+
+        $transaction = Transaction::findOrFail($id);
+        $transaction->update($data);
+
+        return redirect()->route('dashboard.index');
     }
 
     /**

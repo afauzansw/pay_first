@@ -15,15 +15,15 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $balance   = Transaction::sum('amount');
-        $total_trx = Transaction::count();
-        $student   = Student::count();
+        $balance        = Transaction::sum('amount');
+        $total_trx      = Transaction::count();
+        $total_student  = Student::count();
         $transaction = Transaction::orderBy('created_at', 'desc')->get();
         return view('admin.pages.dashboard')->with([
-            'balance'     => $balance,
-            'total_trx'   => $total_trx,
-            'student'     => $student,
-            'transaction' => $transaction,
+            'balance'        => $balance,
+            'total_trx'      => $total_trx,
+            'total_student'  => $total_student,
+            'transaction'       => $transaction,
         ]);
     }
 

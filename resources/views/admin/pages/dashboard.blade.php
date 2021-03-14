@@ -76,7 +76,7 @@
                                 </div>
                                 <div class="flex-1 text-right md:text-center">
                                     <h5 class="font-bold uppercase text-gray-600">Total Students</h5>
-                                    <h3 class="font-bold text-3xl">{{ $student }} <span class="text-yellow-500"><i class="fas fa-caret-up"></i></span></h3>
+                                    <h3 class="font-bold text-3xl">{{ $total_student }} <span class="text-yellow-500"><i class="fas fa-caret-up"></i></span></h3>
                                 </div>
                             </div>
                         </div>
@@ -102,13 +102,13 @@
                             <tbody>
                                 @foreach ($transaction as $trx)
                                 <tr class="hover:bg-grey-lighter">
-                                    <td class="py-4 px-6 border-b border-grey-light">{{ $trx->students_id }}</td>
-                                    <td class="py-4 px-6 border-b border-grey-light">{{ $trx->users_id }}</td>
+                                    <td class="py-4 px-6 border-b border-grey-light">{{ $trx->student->name }}</td>
+                                    <td class="py-4 px-6 border-b border-grey-light">{{ $trx->user->name }}</td>
                                     <td class="py-4 px-6 border-b border-grey-light">{{ $trx->amount }}</td>
                                     <td class="py-4 px-6 border-b border-grey-light">{{ $trx->created_at }}</td>
                                     <td class="py-4 px-6 border-b border-grey-light">
                                         <form action="{{ route('transaction.destroy', $trx->id) }}" method="POST">
-                                            <a href="{{ route('transaction.show', $trx->id) }}" class="modal-open mr-2 rounded-md text-blue-600">
+                                            <a href="{{ route('transaction.show', $trx->id) }}" class="mr-2 rounded-md text-blue-600">
                                                 <i class="far fa-eye"></i>
                                             </a>
                                             <a href="{{ route('transaction.edit', $trx->id) }}" class=" mr-2 rounded-md text-green-600">
@@ -140,6 +140,7 @@
 
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!-- AlpineJS -->
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <!-- Font Awesome -->

@@ -15,6 +15,16 @@ class Transaction extends Model
 
     public function student()
     {
-        return $this->belongsTo(Student::class);
+        return $this->belongsTo(Student::class, 'students_id', 'id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'users_id', 'id');
+    }
+
+    public function bill()
+    {
+        return $this->belongsTo(Bill::class, 'bills_id', 'id');
     }
 }

@@ -12,4 +12,9 @@ class Bill extends Model
     protected $fillable = [
         'class','year','nominal'
     ];
+
+    public function transaction()
+    {
+        return $this->hasMany(Transaction::class, 'bills_id');
+    }
 }

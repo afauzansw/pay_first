@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>New Transaction</title>
+        <title> New Transaction - Pay First </title>
 
         <!-- Tailwind -->
         <link href="{{ asset('css/tailwind.output.css') }}" rel="stylesheet">
@@ -74,7 +74,7 @@
                             </div>
                             <div class="flex flex-col">
                                 <label class="leading-loose">Amount</label>
-                                <input type="number" min="100000" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" id="amount" name="amount" required="" placeholder="Amount" aria-label="Amount">
+                                <input type="number" min="100000" max="{{ $bill->nominal }}" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" id="amount" name="amount" required="" placeholder="Amount" aria-label="Amount">
                             </div>
                             <div class="mt-5 flex flex-col">
                                 <button class="p-1 px-5 text-base float-right bg-blue-600 text-white rounded-full focus:outline-none" type="submit">Create</button>

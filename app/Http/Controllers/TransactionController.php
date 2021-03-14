@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bill;
+use App\Models\School;
 use App\Models\Student;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class TransactionController extends Controller
 {
@@ -64,7 +66,11 @@ class TransactionController extends Controller
      */
     public function show($id)
     {
-        //
+        $transaction = Transaction::findOrFail($id);
+
+        return view('admin.pages.transaction.show')->with([
+            'transaction' => $transaction
+        ]);
     }
 
     /**
@@ -76,14 +82,14 @@ class TransactionController extends Controller
     public function edit($id)
     {
         $transaction = Transaction::findOrFail($id);
-        $allBill    = Bill::all();
-        $allPayer   = User::all();
-        $allStudent = Student::all();
+        $allBill     = Bill::all();
+        $allPayer    = User::all();
+        $allStudent  = Student::all();
         return view('admin.pages.transaction.edit')->with([
             'transaction' => $transaction,
-            'allBill'    => $allBill,
-            'allPayer'   => $allPayer,
-            'allStudent' => $allStudent
+            'allBill'     => $allBill,
+            'allPayer'    => $allPayer,
+            'allStudent'  => $allStudent
         ]);
     }
 
@@ -114,5 +120,20 @@ class TransactionController extends Controller
     {
         Transaction::find($id)->delete();
         return redirect()->route('dashboard.index')->with('Success', 'Student deleted');
+    }
+
+    public function exportPDF($id)
+    {
+        $transaction = Transaction::findOrfail($id);
+        $school      = School::all();
+        $pdf         = PDF::loadView('admin.pages.pdf.receipt',[
+            'transaction'=>$transaction,
+            'school'      => $school
+            ]);
+        return $pdf->download('.pdf');
+        // return view('admin.pages.pdf.receipt')->with([
+        //     'transaction' => $transaction,
+        //     'school'      => $school
+        // ]);
     }
 }

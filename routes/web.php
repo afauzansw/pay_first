@@ -9,6 +9,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TransactionController;
+use App\Models\Transaction;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +38,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('transaction', TransactionController::class);
     });
 
-Route::get('student-pdf', [StudentController::class, 'export']);
+Route::get('receipt-pdf/{id}', [TransactionController::class, 'exportPDF'])->name('receipt-pdf');
+Route::get('student-pdf', [StudentController::class, 'exportPDF']);
 
 // Route::group(['middleware'=>'admins'],function(){
 //     Route::resource('/user',UserController::class);

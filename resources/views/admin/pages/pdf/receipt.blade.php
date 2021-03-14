@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Student List</title>
+    <title>Document</title>
 
     <!-- Tailwind -->
     <style>
@@ -13,9 +13,53 @@
 
 </head>
 <body>
-    <div class="m-5">
-        <h3 class="text-center text-3xl font-semibold">Student List</h3>
-        <h4></h4>
+    <div class="m-4">
+        <div class="text-center text-blue-700">
+            @foreach($school as $sch)
+                <h3 class="text-xl">{{ $sch->name }}</h3>
+                <h5 class="text-base">{{ $sch->address }}</h5>
+                <p class="text-sm">Telp. {{ $sch->phone }} E-mail : {{ $sch->email }}</p>
+            @endforeach
+            <h4 class="mt-6 font-semibold text-2xl">School Payment Receipt</h4>
+        </div>
+
+        <table class="">
+            <tr>
+              <td>TRX ID : {{ $transaction->id }}</td>
+              <td>Time   : {{ $transaction->created_at }}</td>
+            </tr>
+            <tr>
+              <td>Payer</td>
+              <td>{{ $transaction->user->name }}</td>
+            </tr>
+            <tr>
+              <td>Name</td>
+              <td>{{ $transaction->student->name }}</td>
+            </tr>
+            <tr>
+              <td>Payment For</td>
+              <td>Class {{ $transaction->bill->class }}</td>
+            </tr>
+            <tr>
+              <td>Amount</td>
+              <td>{{ $transaction->amount }}</td>
+            </tr>
+          </table>
+
+        {{-- <div class="">
+            <h4>TRX ID</h4>
+            <span class="font-semibold">{{ $transaction->id }}</span>
+            <h4>Time</h4>
+            <span class="font-semibold">{{ $transaction->created_at }}</span>
+            <h4>Payer</h4>
+            <p class="font-semibold">{{ $transaction->users_id }}</p>
+            <h4>Name</h4>
+            <p class="font-semibold">{{ $transaction->students_id }}</p>
+            <h4>Payment For</h4>
+            <p class="font-semibold">{{ $transaction->bills_id }}</p>
+            <h4>Amount</h4>
+            <p class="font-semibold">{{ $transaction->amount }}</p>
+        </div>
         <table class="mt-3 text-left w-full border-collapse">
             <thead>
                 <tr>
@@ -26,16 +70,14 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($student as $stu)
                 <tr class="hover:bg-grey-lighter">
-                    <td class="py-4 px-6 border-b border-gray-100">{{ $stu->nisn }}</td>
-                    <td class="py-4 px-6 border-b border-gray-100">{{ $stu->name }}</td>
-                    <td class="py-4 px-6 border-b border-gray-100">{{ $stu->class }} {{ $stu->major }}</td>
-                    <td class="py-4 px-6 border-b border-gray-100">{{ $stu->address }}</td>
+                    <td class="py-4 px-6 border-b border-gray-100">{{ $transaction->users_id }}</td>
+                    <td class="py-4 px-6 border-b border-gray-100">{{ $transaction->students_id }}</td>
+                    <td class="py-4 px-6 border-b border-gray-100">{{ $transaction->amount }}</td>
+
                 </tr>
-                @endforeach
             </tbody>
-        </table>
+        </table> --}}
     </div>
 </body>
 </html>

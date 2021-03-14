@@ -19,10 +19,12 @@ class StudentController extends Controller
         $classx   = Student::where('class', 'X')->orderBy('major')->get();
         $classxi  = Student::where('class', 'XI')->orderBy('major')->get();
         $classxii = Student::where('class', 'XII')->orderBy('major')->get();
+        // $student = Student::all();
         return view('admin.pages.student.index')->with([
             'classx'   => $classx,
             'classxi'  => $classxi,
-            'classxii' => $classxii
+            'classxii' => $classxii,
+            // 'student'  => $student
         ]);
     }
 
@@ -61,7 +63,7 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Student $student, $id)
+    public function show($id)
     {
         $student = Student::findOrFail($id);
 
@@ -119,7 +121,7 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function export()
+    public function exportPDF()
     {
         $student = Student::orderBy('major')->get();
         $pdf     = PDF::loadView('admin.pages.pdf.student',['student'=>$student]);

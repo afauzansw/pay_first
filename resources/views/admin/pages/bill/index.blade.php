@@ -131,7 +131,7 @@
                             <td class="px-4 py-3 text-sm">Rp {{ $bil->nominal }}</td>
                             <td class="px-4 py-3 text-sm">
                                 <form action="{{ route('bill.destroy', $bil->id) }}" method="POST">
-                                    <a href="{{ route('bill.show', $bil->id) }}" class="modal-open mr-2 rounded-md text-blue-600">
+                                    <a href="{{ route('bill.show', $bil->id) }}" class="mr-2 rounded-md text-blue-600">
                                         <i class="far fa-eye"></i>
                                     </a>
                                     <a href="{{ route('bill.edit', $bil->id) }}" class=" mr-2 rounded-md text-green-600">

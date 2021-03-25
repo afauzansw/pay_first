@@ -18,13 +18,18 @@
                 <x-jet-label for="username" value="{{ __('Username') }}" />
                 <x-jet-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required />
             </div>
+            <div class="mt-4">
+                <x-jet-label for="email" value="{{ __('Email') }}" />
+                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+            </div>
 
             <div class="mt-4">
-                <x-jet-label for="role" value="{{ __('Role') }}" />
-                <select name="role" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" id="role">
-                    <option value="0">Choose</option>
-                    <option value="Admin">Admin</option>
-                    <option value="Kasir">Kasir</option>
+                <x-jet-label for="role_id" value="{{ __('Role') }}" />
+                <select name="role_id" id="role_id" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600">
+                    <option value="">Choose</option>
+                    <option value="1">Admin</option>
+                    <option value="2">Cashier</option>
+                    <option value="3">Student</option>
                 </select>
             </div>
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -18,12 +19,12 @@ class DashboardController extends Controller
         $balance        = Transaction::sum('amount');
         $total_trx      = Transaction::count();
         $total_student  = Student::count();
-        $transaction = Transaction::orderBy('created_at', 'desc')->get();
+        $transaction    = Transaction::orderBy('created_at', 'desc')->get();
         return view('admin.pages.dashboard')->with([
             'balance'        => $balance,
             'total_trx'      => $total_trx,
             'total_student'  => $total_student,
-            'transaction'       => $transaction,
+            'transaction'    => $transaction
         ]);
     }
 

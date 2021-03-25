@@ -37,7 +37,7 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        //
+       //
     }
 
     /**
@@ -127,10 +127,10 @@ class TransactionController extends Controller
         $transaction = Transaction::findOrfail($id);
         $school      = School::all();
         $pdf         = PDF::loadView('admin.pages.pdf.receipt',[
-            'transaction'=>$transaction,
-            'school'      => $school
-            ]);
-        return $pdf->download('.pdf');
+            'school'      => $school,
+            'transaction' => $transaction
+        ]);
+        return $pdf->download('download.pdf');
         // return view('admin.pages.pdf.receipt')->with([
         //     'transaction' => $transaction,
         //     'school'      => $school

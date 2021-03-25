@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bill;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class BillController extends Controller
 {
@@ -14,6 +16,8 @@ class BillController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('admin_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $bill = Bill::all();
         return view('admin.pages.bill.index', compact('bill'));
     }
@@ -53,8 +57,9 @@ class BillController extends Controller
      */
     public function show($id)
     {
-        $bill = Bill::findOrFail($id);
+        abort_if(Gate::denies('admin_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $bill = Bill::findOrFail($id);
         return view('admin.pages.bill.show')->with([
             'bill' => $bill
         ]);
@@ -68,6 +73,8 @@ class BillController extends Controller
      */
     public function edit($id)
     {
+        abort_if(Gate::denies('admin_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $bill = Bill::findOrFail($id);
         return view('admin.pages.bill.edit')->with([
             'bill' => $bill
@@ -99,6 +106,8 @@ class BillController extends Controller
      */
     public function destroy($id)
     {
+        abort_if(Gate::denies('admin_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        
         Bill::find($id)->delete();
         return redirect()->route('bill.index')->with('Success', 'Payment deleted');
     }

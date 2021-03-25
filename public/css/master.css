@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
-        .font-family-karla { font-family: karla; }
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
+        .font-family-karla { font-family: 'Open Sans', sans-serif; }
         .bg-sidebar { background: #1a1a2e; }
         .cta-btn { color: #3d68ff; }
         .upgrade-btn { background: #1947ee; }
@@ -20,8 +20,8 @@
 
         /* Track */
         ::-webkit-scrollbar-track {
-            box-shadow: inset 0 0 5px white;
-            border-radius: 50%;
+            box-shadow: inset 0 0 0 5px #76a4db;
+            /* border-radius: 5px; */
         }
 
         /* Handle */
@@ -32,7 +32,7 @@
 
         /* Handle on hover */
         ::-webkit-scrollbar-thumb:hover {
-            background: #e94560;
+            background: #1a5399;
         }
 
         .modal {

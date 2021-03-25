@@ -10,11 +10,12 @@ class Student extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nisn','name','class','major','address', 'bills_id'
+        'nisn','name','class','major','gender','address', 'bills_id'
     ];
 
     public function transaction()
     {
         return $this->hasMany(Transaction::class, 'students_id');
     }
+
 }

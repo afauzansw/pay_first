@@ -31,6 +31,28 @@
             @-webkit-keyframes bounce-top{0%{-webkit-transform:translateY(-45px);transform:translateY(-45px);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in;opacity:1}24%{opacity:1}40%{-webkit-transform:translateY(-24px);transform:translateY(-24px);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}65%{-webkit-transform:translateY(-12px);transform:translateY(-12px);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}82%{-webkit-transform:translateY(-6px);transform:translateY(-6px);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}93%{-webkit-transform:translateY(-4px);transform:translateY(-4px);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}25%,55%,75%,87%{-webkit-transform:translateY(0);transform:translateY(0);-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}100%{-webkit-transform:translateY(0);transform:translateY(0);-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out;opacity:1}}@keyframes bounce-top{0%{-webkit-transform:translateY(-45px);transform:translateY(-45px);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in;opacity:1}24%{opacity:1}40%{-webkit-transform:translateY(-24px);transform:translateY(-24px);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}65%{-webkit-transform:translateY(-12px);transform:translateY(-12px);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}82%{-webkit-transform:translateY(-6px);transform:translateY(-6px);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}93%{-webkit-transform:translateY(-4px);transform:translateY(-4px);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}25%,55%,75%,87%{-webkit-transform:translateY(0);transform:translateY(0);-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}100%{-webkit-transform:translateY(0);transform:translateY(0);-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out;opacity:1}}
             @-webkit-keyframes fade-in{0%{opacity:0}100%{opacity:1}}@keyframes fade-in{0%{opacity:0}100%{opacity:1}}
 
+            /* width */
+            ::-webkit-scrollbar {
+                width: 5px;
+            }
+
+            /* Track */
+            ::-webkit-scrollbar-track {
+                box-shadow: inset 0 0 0 5px #DFDBFF;
+                /* border-radius: 5px; */
+            }
+
+            /* Handle */
+            ::-webkit-scrollbar-thumb {
+                background: #5C22B6;
+                border-radius: 5px;
+            }
+
+            /* Handle on hover */
+            ::-webkit-scrollbar-thumb:hover {
+                background: #1a5399;
+            }
+
         </style>
 
     </head>
@@ -40,23 +62,48 @@
 
         <div class="h-screen pb-14 bg-right bg-cover" style="background-image:url('{{ asset('icon/bg.svg') }}');">
             <!--Nav-->
-            <div class="w-full container mx-auto p-6">
+            <div class="w-full container mx-auto px-6 py-3">
 
                 <div class="w-full flex items-center justify-between">
                     <a class="flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-2xl lg:text-4xl"  href="#">
-                        <i class="fas fa-school text-indigo-700 pr-2"></i> Pay First
+                        <img src="{{ asset('img/pf-icon.png') }}" alt="app icon" class="w-10 h-10">
                     </a>
 
                     @if (Route::has('login'))
                         <div class="flex w-1/2 justify-end content-center">
                             @auth
-                                <a href="{{ url('/dashboard') }}" class="p-2 px-7 rounded-full bg-green-600 text-lg text-white">Dashboard</a>
-                            @else
-                                <a href="{{ route('login') }}" class="px-8 p-1 rounded-full bg-blue-600 text-lg font-bold text-white">Login</a>
+                                {{-- <a href="{{ url('/dashboard') }}" class="py-1 px-2 rounded-full bg-green-600 text-white hover:bg-green-700">Dashboard</a> --}}
+                                <div x-data="{ isOpen: false }" class="relative w-1/2 flex justify-end">
+                                    <button @click="isOpen = !isOpen" class="realtive z-10 w-12 h-12 overflow-hidden focus:outline-none">
+                                        <img class="h-10 w-10 rounded-full object-cover border-2 border-gray-300 hover:border-gray-400 focus:border-gray-400" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                    </button>
 
-                                @if (Route::has('register'))
+                                    <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
+                                    <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
+
+                                        <!-- Button Profile -->
+                                        <x-jet-dropdown-link href="{{ url('/dashboard') }}">
+                                            {{ __('Dashboard') }}
+                                        </x-jet-dropdown-link>
+                                        <!-- Button Logout -->
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+
+                                            <x-jet-dropdown-link href="{{ route('logout') }}"
+                                                     onclick="event.preventDefault();
+                                                            this.closest('form').submit();">
+                                                {{ __('Logout') }}
+                                            </x-jet-dropdown-link>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            @else
+                                <a href="{{ route('login') }}" class="px-8 p-1 rounded-full bg-blue-600 text-lg font-bold text-white hover:bg-blue-700">Login</a>
+
+                                {{-- @if (Route::has('register'))
                                     <a href="{{ route('register') }}" class="px-5 p-1 ml-4 rounded-full text-lg border-2 border-gray-700 font-bold text-gray-700">Register</a>
-                                @endif
+                                @endif --}}
                             @endauth
                         </div>
                     @endif

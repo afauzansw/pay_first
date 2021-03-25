@@ -19,6 +19,7 @@ class CreateStudentsTable extends Migration
             $table->string('name');
             $table->string('class');
             $table->string('major');
+            $table->enum('gender', ['L','P']);
             $table->string('address');
             $table->foreignId('bills_id')->nullable()->constrained();
             $table->timestamps();

@@ -26,9 +26,14 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'username',
-        'role',
+        'email',
         'password',
     ];
+
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
 
     /**
      * The attributes that should be hidden for arrays.
@@ -63,5 +68,20 @@ class User extends Authenticatable
     public function transaction()
     {
         return $this->hasMany(Transaction::class, 'users_id');
+    }
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        self::created(function (User $user) {
+            if (!$user->roles()->get()->contains(2)) {
+                $user->roles()->attach(2);
+            }
+        });
+    }
+    
+    public function roles()
+    {
+       return $this->belongsToMany(Role::class);
     }
 }

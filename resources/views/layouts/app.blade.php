@@ -5,42 +5,35 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title> Pay First </title>
 
-        <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+        <!-- Style -->
+        @include('includes.style')
 
-        <!-- Styles -->
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-
-        @livewireStyles
-
-        <!-- Scripts -->
-        <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
-    <body class="font-sans antialiased">
-        <x-jet-banner />
+    <body class="bg-gray-100 font-family-karla flex">
 
-        <div class="min-h-screen bg-gray-100">
-            @livewire('navigation-menu')
+        <!-- Sidebar -->
+        @include('admin.layout.sidebar')
 
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
+        <div class="relative w-full flex flex-col h-screen overflow-y-hidden bg-gray-50 dark:bg-gray-900">
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+            <!-- Header & Nav -->
+            @include('admin.layout.header')
+
+            <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
+                <main class="w-full flex-grow p-6">
+                    {{ $slot }}
+                </main>
+
+                <!-- Footer -->
+                @include('admin.layout.footer')
+
+            </div>
         </div>
 
-        @stack('modals')
+        <!-- Script -->
+        @include('includes.script')
 
-        @livewireScripts
     </body>
 </html>

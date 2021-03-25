@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\School;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class SchoolController extends Controller
 {
@@ -14,6 +16,8 @@ class SchoolController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('admin_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        
         $school = School::all();
         return view('admin.pages.school.index', compact('school'));
 
@@ -30,6 +34,7 @@ class SchoolController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('admin_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         return view('admin.pages.school.create');
     }
 
@@ -77,6 +82,8 @@ class SchoolController extends Controller
      */
     public function edit($id)
     {
+        abort_if(Gate::denies('admin_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $school = School::findOrFail($id);
         return view('admin.pages.school.edit')->with([
             'school' => $school

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Validator;
+use Symfony\Component\HttpFoundation\Response;
 use Barryvdh\DomPDF\Facade as PDF;
 
 class StudentController extends Controller
@@ -16,15 +17,15 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $classx   = Student::where('class', 'X')->orderBy('major')->get();
-        $classxi  = Student::where('class', 'XI')->orderBy('major')->get();
-        $classxii = Student::where('class', 'XII')->orderBy('major')->get();
-        // $student = Student::all();
+        abort_if(Gate::denies('admin_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $classx   = Student::where('class', 'X')->get();
+        $classxi  = Student::where('class', 'XI')->get();
+        $classxii = Student::where('class', 'XII')->get();
         return view('admin.pages.student.index')->with([
             'classx'   => $classx,
             'classxi'  => $classxi,
-            'classxii' => $classxii,
-            // 'student'  => $student
+            'classxii' => $classxii
         ]);
     }
 
@@ -35,6 +36,8 @@ class StudentController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('admin_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         return view('admin.pages.student.create');
     }
 
@@ -51,6 +54,7 @@ class StudentController extends Controller
             'name'    => $request->name,
             'class'   => $request->class,
             'major'   => $request->major,
+            'gender'  => $request->gender,
             'address' => $request->address
         ]);
 
@@ -65,8 +69,9 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        $student = Student::findOrFail($id);
+        abort_if(Gate::denies('admin_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $student = Student::findOrFail($id);
         return view('admin.pages.student.show')->with([
             'student' => $student
         ]);
@@ -80,6 +85,8 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
+        abort_if(Gate::denies('admin_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $student = Student::findOrFail($id);
         return view('admin.pages.student.edit')->with([
             'student' => $student
@@ -111,6 +118,8 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
+        abort_if(Gate::denies('admin_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         Student::find($id)->delete();
         return redirect()->route('student.index')->with('Success', 'Student deleted');
     }
@@ -123,6 +132,8 @@ class StudentController extends Controller
      */
     public function exportPDF()
     {
+        abort_if(Gate::denies('admin_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $student = Student::orderBy('major')->get();
         $pdf     = PDF::loadView('admin.pages.pdf.student',['student'=>$student]);
         return $pdf->download('Studentlist.pdf');

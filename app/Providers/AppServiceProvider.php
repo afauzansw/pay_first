@@ -29,16 +29,16 @@ class AppServiceProvider extends ServiceProvider
         Carbon::setLocale('id');
         date_default_timezone_set('Asia/Jakarta');
 
-        Gate::define('isAdmin', function($user) {
-            return $user->roles->title == 'Admin';
-         });
+        // Gate::define('isAdmin', function($user) {
+        //     return $user->roles->title == 'Admin';
+        //  });
 
-        Gate::define('isCashier', function($user) {
-             return $user->roles->title == 'Cashier';
-         });
+        // Gate::define('isCashier', function($user) {
+        //      return $user->roles->title == 'Cashier';
+        //  });
 
-        Gate::define('isStudent', function($user) {
-             return $user->roles->title == 'tudent';
-         });
+        // Gate::define('isStudent', function($user) {
+        //      return $user->roles->title == 'tudent';
+        //  });
     }
 }

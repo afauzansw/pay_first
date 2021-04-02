@@ -22,6 +22,10 @@ class PermissionSeeder extends Seeder
             [
                 'id'    => 2,
                 'title' => 'cashier_access',
+            ],
+            [
+                'id'    => 3,
+                'title' => 'student_access',
             ]
         ];
 

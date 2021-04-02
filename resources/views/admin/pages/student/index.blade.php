@@ -37,17 +37,17 @@
                         <table class="text-left w-full border-collapse">
                             <thead>
                                 <tr>
-                                    <th class="py-4 px-6 bg-gray-100 font-bold uppercase text-sm text-grey-dark border-b border-grey-light">NISN</th>
-                                    <th class="py-4 px-6 bg-gray-100 font-bold uppercase text-sm text-grey-dark border-b border-grey-light">Name</th>
-                                    <th class="py-4 px-6 bg-gray-100 font-bold uppercase text-sm text-grey-dark border-b border-grey-light">Class</th>
-                                    <th class="py-4 px-6 bg-gray-100 font-bold uppercase text-sm text-grey-dark border-b border-grey-light">Gender</th>
-                                    <th class="py-4 px-6 bg-gray-100 font-bold uppercase text-sm text-grey-dark border-b border-grey-light">Address</th>
-                                    <th class="py-4 px-6 bg-gray-100 font-bold uppercase text-sm text-grey-dark border-b border-grey-light">Action</th>
+                                    <th class="py-4 px-6 bg-gray-100 font-bold uppercase text-sm text-grey-dark border-b border-gray-100">NISN</th>
+                                    <th class="py-4 px-6 bg-gray-100 font-bold uppercase text-sm text-grey-dark border-b border-gray-100">Name</th>
+                                    <th class="py-4 px-6 bg-gray-100 font-bold uppercase text-sm text-grey-dark border-b border-gray-100">Class</th>
+                                    <th class="py-4 px-6 bg-gray-100 font-bold uppercase text-sm text-grey-dark border-b border-gray-100">Gender</th>
+                                    <th class="py-4 px-6 bg-gray-100 font-bold uppercase text-sm text-grey-dark border-b border-gray-100">Address</th>
+                                    <th class="py-4 px-6 bg-gray-100 font-bold uppercase text-sm text-grey-dark border-b border-gray-100">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($classx as $student)
-                                <tr class="hover:bg-grey-lighter">
+                                <tr class="hover:bg-gray-50">
                                     <td class="py-4 px-6 border-b border-gray-100">{{ $student->nisn }}</td>
                                     <td class="py-4 px-6 border-b border-gray-100">{{ $student->name }}</td>
                                     <td class="py-4 px-6 border-b border-gray-100">{{ $student->class }} {{ $student->major }}</td>

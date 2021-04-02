@@ -72,7 +72,6 @@
                     @if (Route::has('login'))
                         <div class="flex w-1/2 justify-end content-center">
                             @auth
-                                {{-- <a href="{{ url('/dashboard') }}" class="py-1 px-2 rounded-full bg-green-600 text-white hover:bg-green-700">Dashboard</a> --}}
                                 <div x-data="{ isOpen: false }" class="relative w-1/2 flex justify-end">
                                     <button @click="isOpen = !isOpen" class="realtive z-10 w-12 h-12 overflow-hidden focus:outline-none">
                                         <img class="h-10 w-10 rounded-full object-cover border-2 border-gray-300 hover:border-gray-400 focus:border-gray-400" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
@@ -82,9 +81,10 @@
                                     <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
 
                                         <!-- Button Profile -->
-                                        <x-jet-dropdown-link href="{{ url('/dashboard') }}">
+                                        <x-jet-dropdown-link href="{{ route('dashboard.index') }}">
                                             {{ __('Dashboard') }}
                                         </x-jet-dropdown-link>
+
                                         <!-- Button Logout -->
                                         <form method="POST" action="{{ route('logout') }}">
                                             @csrf

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Bill;
 use App\Models\School;
 use App\Models\Student;
@@ -9,6 +10,7 @@ use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
@@ -37,7 +39,7 @@ class TransactionController extends Controller
      */
     public function create()
     {
-       //
+        //
     }
 
     /**
@@ -49,7 +51,7 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         Transaction::create([
-            'users_id'     => $request->users_id,
+            'users_id'     => Auth::user()->id,
             'students_id'  => $request->students_id,
             'bills_id'     => $request->bills_id,
             'amount'       => $request->amount
@@ -102,7 +104,12 @@ class TransactionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->all();
+        $data = [
+            'users_id'     => Auth::user()->id,
+            'students_id'  => $request->students_id,
+            'bills_id'     => $request->bills_id,
+            'amount'       => $request->amount
+        ];
 
         $transaction = Transaction::findOrFail($id);
         $transaction->update($data);
@@ -119,9 +126,15 @@ class TransactionController extends Controller
     public function destroy($id)
     {
         Transaction::find($id)->delete();
-        return redirect()->route('dashboard.index')->with('Success', 'Student deleted');
+        return redirect()->route('dashboard.index')->with('Success', 'Transaction deleted');
     }
 
+    /**
+     * Export the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function exportPDF($id)
     {
         $transaction = Transaction::findOrfail($id);

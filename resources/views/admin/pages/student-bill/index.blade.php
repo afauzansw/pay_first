@@ -2,6 +2,14 @@
     <h1 class="text-2xl font-semibold text-black pb-3">Student Bills</h1>
     <p class="text-xs text-gray-500 mb-6">Dashboard > Student Bills</p>
 
+    <div class="">
+        <a href="{{ URL::to('student-bill-pdf') }}" class="mr-3 py-2 px-4 text-sm bg-red-600 hover:bg-red-700 text-white rounded-full">
+            <i class="far fa-file-pdf mr-2"></i>
+            Export PDF
+        </a>
+        {{-- @livewire('search-students') --}}
+    </div>
+
     <div id="" class="overflow-auto">
         <div class="w-full mt-3">
             <div class="bg-white overflow-auto rounded-lg">

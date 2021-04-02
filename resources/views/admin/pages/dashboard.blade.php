@@ -70,11 +70,11 @@
                         <td class="py-4 px-6 border-b border-grey-light">Rp {{ $trx->amount }}</td>
                         <td class="py-4 px-6 border-b border-grey-light">{{ $trx->created_at }}</td>
                         <td class="py-4 px-6 border-b border-grey-light">
-                            <form action="{{ route('admin.transaction.destroy', $trx->id) }}" method="POST">
-                                <a href="{{ route('admin.transaction.show', $trx->id) }}" class="mr-2 rounded-md text-blue-600">
+                            <form action="{{ route('transaction.destroy', $trx->id) }}" method="POST">
+                                <a href="{{ route('transaction.show', $trx->id) }}" class="mr-2 rounded-md text-blue-600">
                                     <i class="far fa-eye"></i>
                                 </a>
-                                <a href="{{ route('admin.transaction.edit', $trx->id) }}" class=" mr-2 rounded-md text-green-600">
+                                <a href="{{ route('transaction.edit', $trx->id) }}" class=" mr-2 rounded-md text-green-600">
                                     <i class="fas fa-pen"></i>
                                 </a>
 

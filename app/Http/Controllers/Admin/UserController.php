@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Bill;
+use App\Http\Controllers\Controller;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class BillController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +19,8 @@ class BillController extends Controller
     public function index()
     {
         abort_if(Gate::denies('admin_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $bill = Bill::all();
-        return view('admin.pages.bill.index', compact('bill'));
+        $users = User::with('roles')->get();
+        return view('admin.pages.user.index',compact('users'));
     }
 
     /**
@@ -29,7 +30,10 @@ class BillController extends Controller
      */
     public function create()
     {
-        //
+        abort_if(Gate::denies('admin_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $roles = Role::pluck('title', 'id');
+        return view('admin.pages.user.create', compact('roles'));
     }
 
     /**
@@ -40,13 +44,16 @@ class BillController extends Controller
      */
     public function store(Request $request)
     {
-        Bill::create([
-            'class'   => $request->class,
-            'year'    => $request->year,
-            'nominal' => $request->nominal
+        $user = User::create([
+            'name'      => $request->name,
+            'username'  => $request->username,
+            'email'     => $request->email,
+            'password'  => $request->password
+
         ]);
 
-        return redirect()->route('bill.index');
+        $user->roles()->sync($request->input('roles', []));
+        return redirect()->route('user.index');
     }
 
     /**
@@ -55,13 +62,12 @@ class BillController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
         abort_if(Gate::denies('admin_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $bill = Bill::findOrFail($id);
-        return view('admin.pages.bill.show')->with([
-            'bill' => $bill
+        return view('admin.pages.user.show')->with([
+            'user' => $user
         ]);
     }
 
@@ -71,13 +77,16 @@ class BillController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
         abort_if(Gate::denies('admin_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $bill = Bill::findOrFail($id);
-        return view('admin.pages.bill.edit')->with([
-            'bill' => $bill
+        $roles = Role::pluck('title', 'id');
+
+        $user->load('roles');
+        return view('admin.pages.user.edit')->with([
+            'user'  => $user,
+            'roles' => $roles
         ]);
     }
 
@@ -92,10 +101,11 @@ class BillController extends Controller
     {
         $data = $request->all();
 
-        $bill = Bill::findOrFail($id);
-        $bill->update($data);
+        $user = User::findOrFail($id);
+        $user->update($data);
+        $user->roles()->sync($request->input('roles', []));
 
-        return redirect()->route('bill.index');
+        return redirect()->route('user.index');
     }
 
     /**
@@ -107,8 +117,8 @@ class BillController extends Controller
     public function destroy($id)
     {
         abort_if(Gate::denies('admin_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        
-        Bill::find($id)->delete();
-        return redirect()->route('bill.index')->with('Success', 'Payment deleted');
+
+        User::find($id)->delete();
+        return redirect()->route('user.index')->with('success', 'User deleted');
     }
 }

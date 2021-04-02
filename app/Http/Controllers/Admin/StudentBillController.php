@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Student;
+use App\Http\Controllers\Controller;
 use App\Models\Transaction;
-use App\Models\User;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade as PDF;
 
-class DashboardController extends Controller
+class StudentBillController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,15 +16,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $balance        = Transaction::sum('amount');
-        $total_trx      = Transaction::count();
-        $total_student  = Student::count();
-        $transaction    = Transaction::orderBy('created_at', 'desc')->get();
-        return view('admin.pages.dashboard')->with([
-            'balance'        => $balance,
-            'total_trx'      => $total_trx,
-            'total_student'  => $total_student,
-            'transaction'    => $transaction
+        $trxs = Transaction::with('student', 'bill')->get();
+        return view('admin.pages.student-bill.index')->with([
+            'trxs' => $trxs
         ]);
     }
 
@@ -92,5 +86,15 @@ class DashboardController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function exportPDF()
+    {
+        $trxs = Transaction::with('student', 'bill')->get();
+        // $pdf  = PDF::loadView('admin.pages.pdf.student-bill',['trxs'=>$trxs]);
+        // return $pdf->download('Students-Bill.pdf');
+        return view('admin.pages.pdf.student-bill')->with([
+            'trxs' => $trxs
+        ]);
     }
 }

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Student;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
@@ -58,7 +59,7 @@ class StudentController extends Controller
             'address' => $request->address
         ]);
 
-        return redirect()->route('student.index')->with('success','Student created successfully.');
+        return redirect()->route('student.index')->with('Success','Student created successfully.');
     }
 
     /**
@@ -125,7 +126,7 @@ class StudentController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Export the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -141,4 +142,5 @@ class StudentController extends Controller
         //     'student' => $student
         // ]);
     }
+
 }

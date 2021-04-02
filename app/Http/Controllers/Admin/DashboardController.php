@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Bill;
+use App\Http\Controllers\Controller;
 use App\Models\Student;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 
-class StudentBillController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +16,15 @@ class StudentBillController extends Controller
      */
     public function index()
     {
-        $trxs = Transaction::with('student', 'bill')->get();
-        // $bill     = Bill::find(1);
-        return view('admin.pages.student-bill.index')->with([
-            'trxs' => $trxs,
-            // 'bill'     => $bill
+        $balance        = Transaction::sum('amount');
+        $total_trx      = Transaction::count();
+        $total_student  = Student::count();
+        $transaction    = Transaction::orderBy('created_at', 'desc')->get();
+        return view('admin.pages.dashboard')->with([
+            'balance'        => $balance,
+            'total_trx'      => $total_trx,
+            'total_student'  => $total_student,
+            'transaction'    => $transaction
         ]);
     }
 

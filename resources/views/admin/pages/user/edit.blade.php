@@ -2,7 +2,7 @@
     <h1 class="text-2xl font-semibold text-black pb-3">User Profile</h1>
 
     <div class="mt-5 md:mt-0 md:col-span-2">
-        <form action="{{ route('user.update', $user->id)}}" method="POST">
+        <form action="{{ route('admin.user.update', $user->id)}}" method="POST">
             @csrf
             @method('PUT')
             <div class="sm:mx-7 m-3 shadow-lg overflow-hidden sm:rounded-lg">
@@ -19,12 +19,20 @@
                         </div>
 
                         <div class="col-span-6 sm:col-span-3">
-                            <label for="role" value="Role">Role</label>
-                            <select name="role" required class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" id="role">
+                            <label for="role_id" value="Role">Role</label>
+                            <select name="role_id" id="role_id" required class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600">
                                 <option value="0">Choose</option>
-                                <option @if ($user->role=='Admin') {{ 'selected' }} @endif value="Admin">Admin</option>
-                                <option @if ($user->role=='Kasir') {{ 'selected' }} @endif value="Kasir">Kasir</option>
+                                @foreach ($user->roles as $role)
+                                    <option @if ($role->title=='Admin') {{ 'selected' }} @endif value="1">Admin</option>
+                                    <option @if ($role->title=='Cashier') {{ 'selected' }} @endif value="2">Cashier</option>
+                                    <option @if ($role->title=='Student') {{ 'selected' }} @endif value="3">Student</option>
+                                @endforeach
                             </select>
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-6">
+                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" name="email" id="email" value="{{ $user->email }}" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                         </div>
 
                         <div class="col-span-6 sm:col-span-6">

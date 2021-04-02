@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\School;
-use Illuminate\Support\Facades\Gate;
+use App\Http\Controllers\Controller;
+use App\Models\Bill;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
-class SchoolController extends Controller
+class BillController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,14 +18,9 @@ class SchoolController extends Controller
     public function index()
     {
         abort_if(Gate::denies('admin_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        
-        $school = School::all();
-        return view('admin.pages.school.index', compact('school'));
 
-        // $school = School::findOrFail($id);
-        // return view('admin.pages.school.index')->with([
-        //     'school' => $school
-        // ]);
+        $bill = Bill::all();
+        return view('admin.pages.bill.index', compact('bill'));
     }
 
     /**
@@ -34,8 +30,7 @@ class SchoolController extends Controller
      */
     public function create()
     {
-        abort_if(Gate::denies('admin_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        return view('admin.pages.school.create');
+        //
     }
 
     /**
@@ -46,21 +41,13 @@ class SchoolController extends Controller
      */
     public function store(Request $request)
     {
-        School::create([
-            'npsn'     => $request->npsn,
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'phone'    => $request->phone,
-            'address'  => $request->address
+        Bill::create([
+            'class'   => $request->class,
+            'year'    => $request->year,
+            'nominal' => $request->nominal
         ]);
 
-        return redirect()->route('school.index');
-
-        // $school = School::findOrFail($id);
-
-        // return view('admin.pages.school.index')->with([
-        //     'school' => $school
-        // ]);
+        return redirect()->route('bill.index');
     }
 
     /**
@@ -71,7 +58,12 @@ class SchoolController extends Controller
      */
     public function show($id)
     {
-        //
+        abort_if(Gate::denies('admin_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $bill = Bill::findOrFail($id);
+        return view('admin.pages.bill.show')->with([
+            'bill' => $bill
+        ]);
     }
 
     /**
@@ -80,13 +72,13 @@ class SchoolController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Bill $bill, $id)
     {
         abort_if(Gate::denies('admin_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $school = School::findOrFail($id);
-        return view('admin.pages.school.edit')->with([
-            'school' => $school
+        $bill = Bill::findOrFail($id);
+        return view('admin.pages.bill.edit')->with([
+            'bill' => $bill
         ]);
     }
 
@@ -101,10 +93,10 @@ class SchoolController extends Controller
     {
         $data = $request->all();
 
-        $school = School::findOrFail($id);
-        $school->update($data);
+        $bill = Bill::findOrFail($id);
+        $bill->update($data);
 
-        return redirect()->route('school.index');
+        return redirect()->route('bill.index');
     }
 
     /**
@@ -115,6 +107,9 @@ class SchoolController extends Controller
      */
     public function destroy($id)
     {
-        //
+        abort_if(Gate::denies('admin_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        Bill::find($id)->delete();
+        return redirect()->route('bill.index')->with('Success', 'Payment deleted');
     }
 }

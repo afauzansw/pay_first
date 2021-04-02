@@ -6,7 +6,7 @@
         <!-- Form -->
         <form class="text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7" action="{{ route('transaction.store') }}" method="POST">
             @csrf
-            <input type="text" class="hidden px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" id="users_id" name="users_id" required="" value="{{ Auth::user()->id }}" placeholder="Payer" aria-label="Payer">
+            {{-- <input type="text" class="hidden px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" id="users_id" name="users_id" required="" value="{{ Auth::user()->id }}" placeholder="Payer" aria-label="Payer"> --}}
             <div class="flex flex-col">
                 <label class="leading-loose">Student Name</label>
                 <select name="students_id" id="students_id" required class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600">
@@ -22,13 +22,13 @@
                 <select name="bills_id" id="bills_id" required class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600">
                     <option value="">-- Choose Bill --</option>
                     @foreach ($allBill as $bill)
-                        <option value="{{ $bill->id }}">Class {{ $bill->class }}</option>
+                        <option value="{{ $bill->id }}">Class {{ $bill->class }} - {{ $bill->year }}</option>
                     @endforeach
                 </select>
             </div>
             <div class="flex flex-col">
                 <label class="leading-loose">Amount</label>
-                <input type="number" min="100000" max="{{ $bill->nominal }}" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" id="amount" name="amount" required="" placeholder="Amount" aria-label="Amount">
+                <input type="number" min="100000" max="" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" id="amount" name="amount" required="" placeholder="Amount" aria-label="Amount">
             </div>
             <div class="mt-5 flex flex-col">
                 <button class="p-1 px-5 text-base float-right bg-blue-600 text-white rounded-full focus:outline-none" type="submit">Create</button>

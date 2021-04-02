@@ -2,16 +2,20 @@
         .font-family-karla { font-family: 'Open Sans', sans-serif; }
         .bg-sidebar { background: #1a1a2e; }
         .cta-btn { color: #3d68ff; }
-        .upgrade-btn { background: #1947ee; }
-        .upgrade-btn:hover { background: #0038fd; }
         .new-btn { color: #1a1a2e; transition: 0.25s; }
         .new-btn:hover { background: #e94560; color: #ffffff; }
         .text-app {color: #e94560;}
-        .active-nav-link { background: #0f3460; }
         .nav-item:hover { background: #16213e; }
         .account-link:hover { background: #3d68ff; }
         .login-btn { background-color: #16213e; }
         .login-btn:hover { background-color: #0f3460; }
+
+        /* Cashier Style */
+
+        .bg-sidebar-cashier {background: #133b5c;}
+        .new-btn-cashier { color: #133b5c; transition: 0.25s; }
+        .new-btn-cashier:hover { background: #fcdab7; color: #133b5c; }
+        .nav-item-cashier:hover { background: #1e5f74; }
 
         /* width */
         ::-webkit-scrollbar {

@@ -7,15 +7,6 @@
         @csrf
         @method('PUT')
         <div class="flex flex-col">
-            <label class="leading-loose">Payer</label>
-            <select name="users_id" id="users_id" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600">
-                <option value="">Choose Payer</option>
-                @foreach ($allPayer as $payer)
-                    <option @if ($transaction->users_id=='{{ $transaction->users_id }}') {{ 'selected' }} @endif value="{{ $transaction->users_id }}">{{ $payer->name }}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="flex flex-col">
             <label class="leading-loose">Student Name</label>
             <input type="text" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" id="students_id" name="students_id" required="" value="{{ $transaction->students_id }}" placeholder="" aria-label="students_id">
         </div>
@@ -28,7 +19,7 @@
             <input type="number" min="100000" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" id="amount" name="amount" required="" value="{{ $transaction->amount }}" placeholder="Amount" aria-label="Amount">
         </div>
         <div class="mt-5 flex flex-col">
-            <button class="p-1 px-5 text-base float-right bg-blue-600 text-white rounded-full focus:outline-none" type="submit">Create</button>
+            <button class="p-1 px-5 text-base float-right bg-blue-600 text-white rounded-full focus:outline-none" type="submit">Save</button>
         </div>
     </form>
 </x-app-layout>

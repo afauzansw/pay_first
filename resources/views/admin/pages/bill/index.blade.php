@@ -75,24 +75,24 @@
     </div>
     <div class="w-full overflow-x-auto rounded-lg shadow-md">
         @if(sizeof($bill) > 0)
-        <table class="w-full whitespace-no-wrap">
+        <table class="text-left w-full border-collapse">
             <thead>
-            <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                <th class="px-6 py-4">ID</th>
-                <th class="px-6 py-4">Class</th>
-                <th class="px-6 py-4">Year</th>
-                <th class="px-6 py-4">Nominal</th>
-                <th class="px-6 py-4">Action</th>
+            <tr>
+                <th class="py-4 px-6 bg-gray-100 font-bold uppercase text-sm text-grey-dark border-b border-gray-100">ID</th>
+                <th class="py-4 px-6 bg-gray-100 font-bold uppercase text-sm text-grey-dark border-b border-gray-100">Class</th>
+                <th class="py-4 px-6 bg-gray-100 font-bold uppercase text-sm text-grey-dark border-b border-gray-100">Year</th>
+                <th class="py-4 px-6 bg-gray-100 font-bold uppercase text-sm text-grey-dark border-b border-gray-100">Nominal</th>
+                <th class="py-4 px-6 bg-gray-100 font-bold uppercase text-sm text-grey-dark border-b border-gray-100">Action</th>
             </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-700 dark:bg-gray-800">
             @foreach ($bill as $bil)
-            <tr class="text-gray-700 dark:text-gray-400">
-                <td class="px-6 py-4 text-sm">{{ $bil->id }}</td>
-                <td class="px-6 py-4 text-sm">{{ $bil->class }}</td>
-                <td class="px-6 py-4 text-sm">{{ $bil->year }}</td>
-                <td class="px-6 py-4 text-sm">Rp {{ $bil->nominal }}</td>
-                <td class="px-6 py-4 text-sm">
+            <tr class="hover:bg-gray-50">
+                <td class="py-4 px-6 border-b border-gray-100 text-sm">{{ $bil->id }}</td>
+                <td class="py-4 px-6 border-b border-gray-100 text-sm">{{ $bil->class }}</td>
+                <td class="py-4 px-6 border-b border-gray-100 text-sm">{{ $bil->year }}</td>
+                <td class="py-4 px-6 border-b border-gray-100 text-sm">Rp {{ $bil->nominal }}</td>
+                <td class="py-4 px-6 border-b border-gray-100 text-sm">
                     <form action="{{ route('bill.destroy', $bil->id) }}" method="POST">
                         <a href="{{ route('bill.show', $bil->id) }}" class="mr-2 rounded-md text-blue-600">
                             <i class="far fa-eye"></i>
